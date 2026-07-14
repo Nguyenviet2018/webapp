@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { jwtDecode } from 'jwt-decode';
-import LoginView from '../views/LoginView.vue';
-import DashboardView from '../views/DashboardView.vue';
+import LoginView from '../Views/LoginView.vue';
+import DashboardView from '../Views/DashboardView.vue';
 import About from '../components/About.vue';
 import Home from '../components/Home.vue';
 
