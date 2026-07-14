@@ -24,13 +24,14 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return;
     }
   try {
-    const res = await axios.post('http://localhost:3001/register', {
+    //const res = await axios.post('http://localhost:3001/register', {
+	const res = await axios.post('https://server-supabase-api.vercel.app/register', {
       username: username.value,
       email: email.value,
       password: password.value
     });
     
-    alert(res.data); // "Đăng ký thành công!"
+    //alert(res.data); // "Đăng ký thành công!"
     isLogin.value = true; // Chuyển về màn hình đăng nhập sau khi đăng ký xong
   } catch (err) {
     if (err.response && err.response.status === 409) {
@@ -47,7 +48,8 @@ const login = async () => {
 	  return;
 	}
 try {
-    const res = await axios.post('http://localhost:3001/login', { 
+    //const res = await axios.post('http://localhost:3001/login', { 
+		const res = await axios.post('https://server-supabase-api.vercel.app/login', {
       email: email.value, 
       password: password.value 
     });
