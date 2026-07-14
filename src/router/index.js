@@ -1,0 +1,65 @@
+import { createRouter, createWebHistory } from 'vue-router';
+import { jwtDecode } from 'jwt-decode';
+import LoginView from '../views/LoginView.vue';
+import DashboardView from '../views/DashboardView.vue';
+import About from '../components/About.vue';
+import Home from '../components/Home.vue';
+
+const routes = [
+
+  { path: '/', component: Home },
+  { path: '/login', component: LoginView },
+  { 
+    path: '/dashboard', 
+    component: DashboardView,
+    meta: { requiresAuth: true } // Tất cả user đã đăng nhập đều vào được
+  },
+  { 
+    path: '/admin', 
+    // Sửa dòng 17 thành:
+   component: () => import('../Views/Admin.vue'),
+    meta: { requiresAuth: true, requiresAdmin: true } 
+  },
+  { path: '/about', component: About },
+  { path: '/:pathMatch(.*)*', redirect: '/login' }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+
+  // 1. Xử lý Logout
+  if (to.path === '/logout') {
+    localStorage.removeItem('token');
+    return next('/login');
+  }
+
+  // 2. Bảo vệ Route cần đăng nhập
+  if (to.meta.requiresAuth && !token) {
+    return next('/login');
+  }
+
+  // 3. Kiểm tra quyền Admin
+  if (to.meta.requiresAdmin) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.role === 'admin') {
+        return next();
+      } else {
+        alert("Bạn không có quyền truy cập!");
+        return next('/dashboard');
+      }
+    } catch (e) {
+      return next('/login'); // Token lỗi hoặc hết hạn
+    }
+  }
+
+  // 4. Mặc định cho phép đi tiếp
+  next();
+});
+
+export default router;
