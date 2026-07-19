@@ -94,9 +94,11 @@ try {
 
 <style scoped>
 /* Giữ nguyên các phần CSS của bạn, nó đã rất đẹp rồi! */
-.auth-box { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 300px; margin: auto; }
+.auth-box { 
+	border: 1px solid #ddd; padding: 20px; border-radius: 8px; 
+	max-width: 300px; margin: auto; }
 .toggle-text { cursor: pointer; color: blue; margin-top: 10px; text-align: center; }
-input { width: 100%; padding: 12px 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s ease; }
+input { width: 90%; padding: 12px 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s ease; }
 input:focus { border-color: #42b983; box-shadow: 0 0 8px rgba(66, 185, 131, 0.2); }
 button { width: 100%; padding: 12px 24px; background-color: #42b983; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; }
 button:hover { background-color: #3aa876; }

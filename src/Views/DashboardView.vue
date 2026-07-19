@@ -3,12 +3,23 @@
     <main class="content">
       <header class="header">
         <h1>Chào mừng, {{ userEmail }}</h1>
+        <p>Hệ thống Quản lý Nhân sự nội bộ</p>
       </header>
 
+      <!-- Các thẻ thống kê động -->
       <section class="stats">
-        <div class="card">Tổng học viên: 150</div>
-        <div class="card">Khóa học mới: 5</div>
-		
+        <div class="card">
+          <h3>Tổng nhân viên</h3>
+          <p class="number">{{ totalNhanVien }}</p>
+        </div>
+        <div class="card">
+          <h3>Đang làm việc</h3>
+          <p class="number">{{ dangLamViec }}</p>
+        </div>
+        <div class="card">
+          <h3>Phòng ban</h3>
+          <p class="number">{{ totalPhongBan }}</p>
+        </div>
       </section>
     </main>
   </div>
@@ -17,34 +28,64 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { jwtDecode } from 'jwt-decode';
-import { useRouter } from 'vue-router'; // Đã thêm
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-const router = useRouter(); // Cần khai báo cái này
+const router = useRouter();
 const userEmail = ref('');
+const totalNhanVien = ref(0);
+const dangLamViec = ref(0);
+const totalPhongBan = ref(0);
 
-onMounted(() => {
+onMounted(async () => {
   const token = localStorage.getItem('token');
-  //const userEmail = localStorage.getItem('userEmail');
   if (!token) {
     router.push('/login');
-  } else {
-    try {
-      const decoded = jwtDecode(token);
-      userEmail.value = decoded.email || 'Người dùng'; // Thêm fallback nếu không có email
-    //console.log(userEmail);
-	} catch (error) {
-      console.error("Token không hợp lệ:", error);
-      router.push('/login');
-    }
+    return;
+  }
+
+  try {
+    // 1. Giải mã token
+    const decoded = jwtDecode(token);
+    userEmail.value = decoded.email || 'Admin';
+
+    // 2. Lấy dữ liệu từ API (Đảm bảo URL đúng với backend của bạn)
+    const [resNv, resPb] = await Promise.all([
+      //axios.get('http://localhost:3001/nhanvien'),
+      //axios.get('http://localhost:3001/phongban')
+	  axios.get('https://server-supabase-api.vercel.app/nhanvien'),
+	  axios.get('https://server-supabase-api.vercel.app/phongban')
+    ]);
+
+    // 3. Tính toán thống kê
+    totalNhanVien.value = resNv.data.length;
+    dangLamViec.value = resNv.data.filter(nv => nv.trangthai === 'đang làm').length;
+    totalPhongBan.value = resPb.data.length;
+
+  } catch (error) {
+    console.error("Lỗi khi tải dữ liệu:", error);
+    if (error.response?.status === 401) router.push('/login');
   }
 });
 </script>
 
 <style scoped>
-.dashboard { display: flex; min-height: 100vh; }
-.content { flex: 1; padding: 20px; background: #f4f7f6; }
+.header { margin-bottom: 30px; }
 .stats { display: flex; gap: 20px; margin-top: 20px; }
-.card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 200px; }
-.btn-logout { margin-top: 50px; background: #e74c3c; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; border-radius: 5px; }
-.btn-logout:hover { background: #c0392b; }
+.card { 
+  background: white; 
+  padding: 30px; 
+  border-radius: 15px; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-5px); }
+.number { 
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  color: #27ae60; 
+  margin-top: 10px; 
+}
 </style>

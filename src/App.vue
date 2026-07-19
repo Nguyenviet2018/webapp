@@ -1,22 +1,22 @@
-<template>
+<<template>
   <div id="app">
     <header class="navbar">
       <div class="logo">QUẢN LÝ NHÂN VIÊN</div>
       <nav>
         <router-link to="/">Trang Chủ</router-link> |
         <router-link to="/about">Giới Thiệu</router-link> |
-		<router-link to="/ql-nhanvien">Quản lý Nhân Viên</router-link> |
-		<router-link to="/login">Đăng nhập</router-link> |
-		<router-link to="/logout">Logout</router-link>
-		
+        <router-link to="/ql-nhanvien">Quản lý Nhân Viên</router-link> |
+        
+        <!-- Chỉ hiện khi CHƯA đăng nhập -->
+        <router-link v-if="!isLoggedIn" to="/login">Đăng nhập</router-link>
+        
+        <!-- Chỉ hiện khi ĐÃ đăng nhập -->
+        <button v-else @click="handleLogout" class="btn-logout-nav">Đăng xuất</button>
       </nav>
-	
-		
     </header>
 
     <main class="content">
       <router-view />
-	  
     </main>
 
     <footer class="footer">
@@ -26,13 +26,21 @@
 </template>
 
 <script setup>
-//import { useCounterStore } from './stores/useCounterStore'; 
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-// (Nếu file App.vue và thư mục stores nằm cùng cấp trong src)
-//const store = useCounterStore();
+const router = useRouter();
 
+// Kiểm tra xem đã đăng nhập hay chưa dựa trên token
+const isLoggedIn = computed(() => !!localStorage.getItem('token'));
 
+const handleLogout = () => {
+  localStorage.removeItem('token');
+  router.push('/login');
+};
 </script>
+
+<style>
 
 <style>
 /* Reset cơ bản */
@@ -76,5 +84,19 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-
   background-color: #333;
   color: white;
   margin-top: 2rem;
+}
+.btn-logout-nav {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.btn-logout-nav:hover {
+  text-decoration: underline;
 }
 </style>
