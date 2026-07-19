@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header class="navbar">
-      <div class="logo">My App</div>
+      <div class="logo">QUẢN LÝ NHÂN VIÊN</div>
       <nav>
         <router-link to="/">Trang Chủ</router-link> |
         <router-link to="/about">Giới Thiệu</router-link> |
