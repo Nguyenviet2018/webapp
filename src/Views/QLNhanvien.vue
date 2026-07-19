@@ -181,11 +181,11 @@ const saveNhanVien = async () => {
 
     if (isEditing.value) {
       // Gọi API cập nhật
-      await axios.put(`http://https://server-supabase-api.vercel.app/nhanvien/${form.value.nhanvien_id}`, payload);
+      await axios.put(`https://server-supabase-api.vercel.app/nhanvien/${form.value.nhanvien_id}`, payload);
 		//await axios.put(`http://localhost:3001/nhanvien/${form.value.nhanvien_id}`, payload);
 	} else {
       // Gọi API thêm mới
-      await axios.post('http://https://server-supabase-api.vercel.app/nhanvien', payload);
+      await axios.post('https://server-supabase-api.vercel.app/nhanvien', payload);
 		//await axios.post('http://localhost:3001/nhanvien', payload);
 	}
     
@@ -219,7 +219,7 @@ const editNhanVien = (nv) => {
 
 const deleteNhanVien = async (id) => {
   if (!confirm("Xóa nhân viên này?")) return;
-  await axios.delete(`http://https://server-supabase-api.vercel.app/nhanvien/${id}`);
+  await axios.delete(`https://server-supabase-api.vercel.app/nhanvien/${id}`);
   //await axios.delete(`http://localhost:3001/nhanvien/${id}`);
   
   fetchNhanVien();
