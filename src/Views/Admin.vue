@@ -57,6 +57,7 @@ const users = ref([]);
 // Lấy danh sách user từ Backend
 const fetchUsers = async () => {
   try {
+	//const res = await axios.get('http://localhost:3001/users', {
     const res = await axios.get('https://server-supabase-api.vercel.app/users', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
@@ -68,7 +69,7 @@ const fetchUsers = async () => {
 const addUser = async () => {
   try {
     //await axios.post('http://localhost:3001/admin/add-user', newUser.value, {
-		await axios.post('https://server-supabase-api.vercel.app/admin/add-user', newUser.value, {
+	await axios.post('https://server-supabase-api.vercel.app/admin/add-user', newUser.value, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     alert("Thêm thành công!");
@@ -90,7 +91,8 @@ const deleteUser = async (id) => {
   if (!confirm("Bạn có chắc chắn muốn xóa user này?")) return;
 
   try {
-    await axios.delete(`https://server-supabase-api.vercel.app/users/${id}`, {
+	//await axios.delete(`http://localhost:3001/users/${id}`, {
+     await axios.delete(`https://server-supabase-api.vercel.app/users/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}` // Bắt buộc phải có token
       }

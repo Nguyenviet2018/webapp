@@ -48,8 +48,8 @@ const login = async () => {
 	  return;
 	}
 try {
-    //const res = await axios.post('http://localhost:3001/login', { 
-		const res = await axios.post('https://server-supabase-api.vercel.app/login', {
+   // const res = await axios.post('http://localhost:3001/login', { 
+	const res = await axios.post('https://server-supabase-api.vercel.app/login', {
       email: email.value, 
       password: password.value 
     });

@@ -5,6 +5,7 @@
       <nav>
         <router-link to="/">Trang Chủ</router-link> |
         <router-link to="/about">Giới Thiệu</router-link> |
+		<router-link to="/ql-nhanvien">Quản lý Nhân Viên</router-link> |
 		<router-link to="/login">Đăng nhập</router-link> |
 		<router-link to="/logout">Logout</router-link>
 		
@@ -60,9 +61,12 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-
 /* Main Content */
 .content {
   padding: 2rem;
-  min-height: 80vh;
-  max-width: 800px;
+  min-height: 100vh;
+  /* Thay vì giới hạn 800px, hãy để rộng hơn hoặc xóa nó đi */
+  max-width: 1400px; 
   margin: 0 auto;
+  width: 100%; /* Đảm bảo chiếm đủ 100% không gian cho phép */
+  box-sizing: border-box;
 }
 
 /* Footer */
