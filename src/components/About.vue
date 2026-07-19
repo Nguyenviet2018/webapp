@@ -27,7 +27,7 @@
         </ul>
 
         <div class="author-section">
-          <p>Phát triển bởi: <strong>Tên của bạn</strong></p>
+          <p>Phát triển bởi: <strong>VietJack616</strong></p>
           <p>Phiên bản: 1.0.0</p>
         </div>
       </div>
