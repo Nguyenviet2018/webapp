@@ -4,6 +4,7 @@ import LoginView from '../Views/LoginView.vue';
 import DashboardView from '../Views/DashboardView.vue';
 import About from '../components/About.vue';
 import Home from '../components/Home.vue';
+import DashboardAdmin from '../Views/DashboardAdmin.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -27,6 +28,11 @@ const routes = [
     path: '/add-nhanvien', 
     component: () => import('../Views/AddNhanvien.vue'),
     meta: { requiresAuth: true, requiresAdmin: true } 
+  },
+  { 
+    path: '/dashboard-admin', 
+    component: () => import('../Views/DashboardAdmin.vue'),
+    meta: { requiresAuth: true, requiresAdmin: true } // <--- Bắt buộc phải có flag này
   },
   { path: '/about', component: About },
   { path: '/:pathMatch(.*)*', redirect: '/login' }
