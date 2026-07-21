@@ -9,13 +9,15 @@
   <h1>📋 Quản lý Nhân viên</h1>
   <button @click="$router.push('/add-nhanvien')" class="btn-add-new">+ Thêm nhân viên</button>
 </header>
-<div class="search-container">
+
+	<div class="search-container">
 	  <input 
 	    v-model="searchQuery" 
 	    placeholder="🔍 Tìm kiếm theo mã NV hoặc họ tên..." 
 	    class="search-input"
 	  />
 	</div>
+	
     <!-- Form dạng Card đẹp mắt -->
     <div v-if="isEditing" class="form-card">
 	
@@ -126,10 +128,19 @@
             <td>
               <span :class="['status', nv.trangthai]">{{ nv.trangthai }}</span>
             </td>
+<!-- 			<td class="text-center">
+			            <router-link :to="`/chitietNhanvien/${item.nhanvien_id}`" class="btn-detail">
+			              Xem chi tiết
+			            </router-link>
+			            <!-- Các nút sửa/xóa khác (nếu có) -->
+			
             <td class="text-center">
-              <button @click="editNhanVien(nv)" class="btn-icon edit">Update ✏️</button>
-              <button @click="deleteNhanVien(nv.nhanvien_id)" class="btn-icon delete">Delete 🗑️</button>
-            </td>
+			<router-link :to="`/chitietNhanvien/${nv.nhanvien_id}`" class="btn-icon detail" style="text-decoration:none; display:inline-block; margin-bottom:5px; background:#e0f2fe; color:#0369a1; padding:6px 12px; border-radius:4px;">Chi tiết 👁️</router-link>
+			<br/>
+            <button @click="editNhanVien(nv)" class="btn-icon edit">Update ✏️</button>
+            <button @click="deleteNhanVien(nv.nhanvien_id)" class="btn-icon delete">Delete 🗑️</button>
+			  
+			</td>
           </tr>
         </tbody>
       </table>
@@ -157,7 +168,7 @@ const filteredNhanVien = computed(() => {
 });
 
 const fetchNhanVien = async () => {
-  //const res = await axios.get('http://localhost:3001/nhanvien');
+  //const res = await axios.get('http://192.168.0.134:3002/nhanvien');
   const res = await axios.get('https://server-supabase-api.vercel.app/nhanvien');
   nhanviens.value = res.data;
 };
@@ -182,11 +193,11 @@ const saveNhanVien = async () => {
     if (isEditing.value) {
       // Gọi API cập nhật
       await axios.put(`https://server-supabase-api.vercel.app/nhanvien/${form.value.nhanvien_id}`, payload);
-		//await axios.put(`http://localhost:3001/nhanvien/${form.value.nhanvien_id}`, payload);
+	//await axios.put(`http://192.168.0.134:3002/nhanvien/${form.value.nhanvien_id}`, payload);
 	} else {
       // Gọi API thêm mới
       await axios.post('https://server-supabase-api.vercel.app/nhanvien', payload);
-		//await axios.post('http://localhost:3001/nhanvien', payload);
+	//await axios.post('http://192.168.0.134:3002/nhanvien', payload);
 	}
     
     alert("Thành công!");
@@ -220,7 +231,7 @@ const editNhanVien = (nv) => {
 const deleteNhanVien = async (id) => {
   if (!confirm("Xóa nhân viên này?")) return;
   await axios.delete(`https://server-supabase-api.vercel.app/nhanvien/${id}`);
-  //await axios.delete(`http://localhost:3001/nhanvien/${id}`);
+  //await axios.delete(`http://192.168.0.134:3002/nhanvien/${id}`);
   
   fetchNhanVien();
 };
@@ -232,13 +243,13 @@ const resetForm = () => {
 // Hàm lấy danh sách phòng ban
 const fetchPhongBan = async () => {
   const res = await axios.get('https://server-supabase-api.vercel.app/phongban');
-  //const res = await axios.get('http://localhost:3001/phongban');
+  //const res = await axios.get('http://192.168.0.134:3002/phongban');
   
   phongbans.value = res.data;
 };
 const fetchChucVu = async () => {
   const res = await axios.get('https://server-supabase-api.vercel.app/chucvu');
-  //const res = await axios.get('http://localhost:3001/chucvu');
+  //const res = await axios.get('http://192.168.0.134:3002/chucvu');
   chucvus.value = res.data;
 };
 //onMounted(fetchNhanVien);
@@ -380,6 +391,16 @@ onMounted(() => {
   cursor: pointer;
   font-weight: bold;
   margin: 20px;
+}
+.btn-detail{
+	background: #27ae60;
+	color: white; 
+	padding: 10px 20px; 
+	border-radius: 6px; 
+	border: none; 
+	cursor: pointer;
+	font-weight: bold;
+	margin: 20px;
 }
 .form-actions{
 	margin: 10px;

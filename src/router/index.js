@@ -5,6 +5,8 @@ import DashboardView from '../Views/DashboardView.vue';
 import About from '../components/About.vue';
 import Home from '../components/Home.vue';
 import DashboardAdmin from '../Views/DashboardAdmin.vue';
+import chitietNhanvien from '../Views/NhanVienDetail.vue';
+import chamcongNhanvien from '../Views/ChamCongManagement.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -33,6 +35,16 @@ const routes = [
     path: '/dashboard-admin', 
     component: () => import('../Views/DashboardAdmin.vue'),
     meta: { requiresAuth: true, requiresAdmin: true } // <--- Bắt buộc phải có flag này
+  },
+	{
+    path: '/chitietNhanvien/:id',   // <--- Bổ sung :id ở đây để nhận ID nhân viên
+    component: chitietNhanvien,     // <--- Dùng luôn biến đã import sẵn ở trên cho đồng bộ
+    meta: { requiresAuth: true, requiresAdmin: true }
+  },
+  {
+    path: '/chamcongNhanvien',      // Trang chấm công danh sách chung thì giữ nguyên không cần id
+    component: chamcongNhanvien,
+    meta: { requiresAuth: true, requiresAdmin: true }
   },
   { path: '/about', component: About },
   { path: '/:pathMatch(.*)*', redirect: '/login' }

@@ -60,6 +60,7 @@ const fetchData = async () => {
   try {
     const token = localStorage.getItem('token');
     const res = await axios.get('https://server-supabase-api.vercel.app/dashboard/stats', {
+	//const res = await axios.get('http://192.168.0.134:3002/dashboard/stats', {
       headers: { Authorization: `Bearer ${token}` }
     });
     stats.value = res.data;

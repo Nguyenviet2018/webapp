@@ -13,5 +13,8 @@ export default defineConfig({
   // Thêm đoạn này vào để giải quyết cảnh báo:
     define: {
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
-    }
+    },
+	server: {
+	  port: 3000 // hoặc cổng hiện tại của bạn
+	}
 })

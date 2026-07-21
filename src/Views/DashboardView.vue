@@ -51,8 +51,8 @@ onMounted(async () => {
 
     // 2. Lấy dữ liệu từ API (Đảm bảo URL đúng với backend của bạn)
     const [resNv, resPb] = await Promise.all([
-      //axios.get('http://localhost:3001/nhanvien'),
-      //axios.get('http://localhost:3001/phongban')
+     // axios.get('http://192.168.0.134:3002/nhanvien'),
+     // axios.get('http://192.168.0.134:3002/phongban')
 	  axios.get('https://server-supabase-api.vercel.app/nhanvien'),
 	  axios.get('https://server-supabase-api.vercel.app/phongban')
     ]);

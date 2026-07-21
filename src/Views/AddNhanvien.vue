@@ -109,9 +109,9 @@ const fetchData = async () => {
     // Gọi cả 2 API cùng lúc để tối ưu
     const [resPb, resCv] = await Promise.all([
       axios.get('https://server-supabase-api.vercel.app/phongban'),
-	 // axios.get('http://localhost:3001/phongban'),
+	  //axios.get('http://192.168.0.134:3002/phongban'),
       axios.get('https://server-supabase-api.vercel.app/chucvu')
-	  //axios.get('http://localhost:3001/chucvu')
+	  //axios.get('http://192.168.0.134:3002/chucvu')
     ]);
     listPhongBan.value = resPb.data;
     chucvus.value = resCv.data;
@@ -129,7 +129,7 @@ const submit = async () => {
       return;
     }
     await axios.post('https://server-supabase-api.vercel.app/nhanvien', form.value);
-	//await axios.post('http://localhost:3001/nhanvien', form.value);
+	//await axios.post('http://192.168.0.134:3002/nhanvien', form.value);
 	
     alert("Thêm nhân viên thành công!");
     router.push('/ql-nhanvien');

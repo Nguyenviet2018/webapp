@@ -4,9 +4,10 @@
       <div class="logo">QUẢN LÝ NHÂN VIÊN</div>
       <nav>
         <router-link to="/">Trang Chủ</router-link> |
-        <router-link to="/about">Giới Thiệu</router-link> |
-        <router-link to="/ql-nhanvien">Quản lý Nhân Viên</router-link> |
         <router-link to="/dashboard-admin">Dashboard</router-link> |
+		<router-link to="/ql-nhanvien">Quản lý Nhân Viên</router-link> |
+		<router-link to="/chamcongNhanvien">Chấm Công</router-link> |
+		<router-link to="/about">Giới Thiệu</router-link> |
         <!-- Chỉ hiện khi CHƯA đăng nhập -->
         <router-link v-if="!isLoggedIn" to="/login">Đăng nhập</router-link>
         
